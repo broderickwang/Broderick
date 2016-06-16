@@ -12,10 +12,20 @@ import com.ttb.broderick.R;
 
 public class SplashActivity extends AppCompatActivity {
 
+	/**
+	 * @param savedInstanceState
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_splash);
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		startActivity(new Intent(SplashActivity.this, MainActivity.class));
+		finish();
+		/*setContentView(R.layout.activity_splash);
 		ImageView logoImage = (ImageView) this.findViewById(R.id.splash);
 		AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
 		alphaAnimation.setDuration(4000);
@@ -34,6 +44,13 @@ public class SplashActivity extends AppCompatActivity {
 				startActivity(new Intent(SplashActivity.this, MainActivity.class));
 				SplashActivity.this.finish();
 			}
-		});
+		});*/
+	}
+
+	private class  at extends Thread{
+		@Override
+		public void run() {
+//			Thread.sleep(3000);
+		}
 	}
 }

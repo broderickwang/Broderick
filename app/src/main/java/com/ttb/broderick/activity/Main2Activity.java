@@ -73,7 +73,7 @@ public class Main2Activity extends AppCompatActivity {
 		trans = fm.beginTransaction();
 
 		tf = TitleFragement.newInstance();
-		cf = new ContentFragement();
+		cf = ContentFragement.newInstance();
 		trans.replace(R.id.frame,tf);
 		trans.commit();
 	}
