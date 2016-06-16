@@ -1,5 +1,6 @@
 package com.ttb.broderick.fragement;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,7 +32,8 @@ public class TitleFragement extends StatedFragment {
 			@Override
 			public void onClick(View view) {
 				Toast.makeText(getActivity(), "i am a imagebutton in titlefragement", Toast.LENGTH_SHORT).show();
-				startActivity(new Intent(getContext(), FreshActivity.class));
+				startActivity(new Intent(getContext(), FreshActivity.class),
+						ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
 				getActivity().finish();
 				}
 		});

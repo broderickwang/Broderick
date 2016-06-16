@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.ttb.broderick"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -33,4 +33,8 @@ dependencies {
     compile 'com.specyci:residemenu:1.6+'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.inthecheesefactory.thecheeselibrary:stated-fragment-support-v4:0.10.0'
+    //这个库基于android-Ultra-Pull-To-Refresh，封装了加载更多的逻辑，
+    // 而且还支持Android最新推出的下拉控件 SwipeRefreshLayout
+    //https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
 }

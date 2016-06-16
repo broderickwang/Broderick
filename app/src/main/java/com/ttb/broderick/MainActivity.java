@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
 		resideMenu.openMenu(ResideMenu.DIRECTION_LEFT); // or ResideMenu.DIRECTION_RIGHT
-//		resideMenu.closeMenu();
+		resideMenu.closeMenu();
 		return super.dispatchTouchEvent(ev);
 	}
 

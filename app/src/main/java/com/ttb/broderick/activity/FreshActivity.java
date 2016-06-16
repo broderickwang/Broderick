@@ -2,7 +2,10 @@ package com.ttb.broderick.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.ListView;
 
 import com.ttb.broderick.R;
@@ -28,6 +31,15 @@ public class FreshActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//告诉Window页面切换需要使用动画,必须在setContentView之前
+		getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+		Transition explode = TransitionInflater.from(this).inflateTransition(R.transition.explode);
+		//退出时使用
+		getWindow().setExitTransition(explode);
+		//第一次进入时使用
+		getWindow().setEnterTransition(explode);
+		//再次进入时使用
+		getWindow().setReenterTransition(explode);
 		setContentView(R.layout.activity_fresh);
 		ButterKnife.bind(this);
 		setListnrer();
