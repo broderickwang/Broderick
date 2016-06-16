@@ -1,5 +1,6 @@
 package com.ttb.broderick.fragement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.inthecheesefactory.thecheeselibrary.fragment.support.v4.app.StatedFragment;
 import com.ttb.broderick.R;
+import com.ttb.broderick.activity.FreshActivity;
 
 /**
  * Created by Kevin on 16/6/16.
@@ -29,7 +31,9 @@ public class TitleFragement extends StatedFragment {
 			@Override
 			public void onClick(View view) {
 				Toast.makeText(getActivity(), "i am a imagebutton in titlefragement", Toast.LENGTH_SHORT).show();
-			}
+				startActivity(new Intent(getContext(), FreshActivity.class));
+				getActivity().finish();
+				}
 		});
 
 		return view;
