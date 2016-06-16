@@ -1,16 +1,25 @@
 package com.ttb.broderick;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.MotionEvent;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
+import com.ttb.broderick.activity.Main2Activity;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 	ResideMenu resideMenu;
+	@Bind(R.id.jump)
+	Button jump;
 	private ResideMenuItem itemHome;
 	private ResideMenuItem itemProfile;
 	private ResideMenuItem itemCalendar;
@@ -20,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		ButterKnife.bind(this);
 		CardView cardView = (CardView) findViewById(R.id.card1);
 		setMenu();
 	}
@@ -30,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 //		resideMenu.closeMenu();
 		return super.dispatchTouchEvent(ev);
 	}
+
 	private ResideMenu.OnMenuListener menuListener = new ResideMenu.OnMenuListener() {
 		@Override
 		public void openMenu() {
@@ -41,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
 			Toast.makeText(MainActivity.this, "menu closed", Toast.LENGTH_SHORT).show();
 		}
 	};
-	private void setMenu(){
+
+	private void setMenu() {
 // attach to current activity;
 		resideMenu = new ResideMenu(this);
 //		resideMenu.setUse3D(true);
@@ -53,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
 		resideMenu.setScaleValue(0.6f);
 
 		// create menu items;
-		itemHome     = new ResideMenuItem(this, R.drawable.icon_home,     "Home");
-		itemProfile  = new ResideMenuItem(this, R.drawable.icon_profile,  "Profile");
+		itemHome = new ResideMenuItem(this, R.drawable.icon_home, "Home");
+		itemProfile = new ResideMenuItem(this, R.drawable.icon_profile, "Profile");
 		itemCalendar = new ResideMenuItem(this, R.drawable.icon_calendar, "Calendar");
 		itemSettings = new ResideMenuItem(this, R.drawable.icon_settings, "Settings");
 
@@ -83,5 +95,10 @@ public class MainActivity extends AppCompatActivity {
 				resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
 			}
 		});*/
+	}
+
+	@OnClick(R.id.jump)
+	public void onClick() {
+		startActivity(new Intent(MainActivity.this, Main2Activity.class));
 	}
 }

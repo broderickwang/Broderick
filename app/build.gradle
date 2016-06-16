@@ -31,4 +31,6 @@ dependencies {
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
 //https://github.com/SpecialCyCi/AndroidResideMenu
     compile 'com.specyci:residemenu:1.6+'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.inthecheesefactory.thecheeselibrary:stated-fragment-support-v4:0.10.0'
 }
