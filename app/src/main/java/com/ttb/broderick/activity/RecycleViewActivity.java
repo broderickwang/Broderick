@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.ttb.broderick.R;
 import com.ttb.broderick.adapter.FreshAdapter;
 import com.ttb.broderick.listner.OnItemClickListner;
+import com.ttb.broderick.listner.SimpleItemTouchHelperCallback;
 import com.ttb.broderick.recycleviewdecoration.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -29,6 +31,8 @@ public class RecycleViewActivity extends AppCompatActivity {
 	FreshAdapter mAdapter;
 	@Bind(R.id.recycle)
 	RecyclerView recycle;
+	ItemTouchHelper.Callback callback;
+	ItemTouchHelper helper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,7 @@ public class RecycleViewActivity extends AppCompatActivity {
 		recycle.addItemDecoration(new DividerItemDecoration(this));
 		setListner();
 		setAdapter();
+		setDrag();
 	}
 	private void setAdapter(){
 		List<String> namse= new ArrayList<>();
@@ -62,13 +67,19 @@ public class RecycleViewActivity extends AppCompatActivity {
 			@Override
 			public void onItemLongClick(View view, int position) {
 				Toast.makeText(RecycleViewActivity.this, position + " long click",Toast.LENGTH_SHORT).show();
-				mAdapter.removeData(position);
+//				mAdapter.removeData(position);
+				helper.startSwipe(recycle.getChildViewHolder(view));
 			}
 		});
 		recycle.setAdapter(mAdapter);
 	}
 	private void setListner(){
 		recycle.addOnItemTouchListener(new OnItemClickListner(recycle) {
+			@Override
+			public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+			}
+
 			@Override
 			public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
 				Toast.makeText(RecycleViewActivity.this, "clicked "+position, Toast.LENGTH_SHORT).show();
@@ -100,4 +111,11 @@ public class RecycleViewActivity extends AppCompatActivity {
 		}
 		return true;
 	}
+
+	private void setDrag(){
+		callback = new SimpleItemTouchHelperCallback(mAdapter);
+		helper = new ItemTouchHelper(callback);
+		helper.attachToRecyclerView(recycle);
+	}
+
 }

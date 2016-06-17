@@ -10,14 +10,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ttb.broderick.R;
+import com.ttb.broderick.listner.SimpleItemTouchHelperCallback;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 /**
  * Created by Kevin on 16/6/16.
  */
-public class FreshAdapter extends RecyclerView.Adapter<FreshAdapter.ViewHold> {
+public class FreshAdapter extends RecyclerView.Adapter<FreshAdapter.ViewHold>
+			implements SimpleItemTouchHelperCallback.ItemTouchHelperAdapter{
 
 	public interface OnItemClickLitener
 	{
@@ -49,6 +52,7 @@ public class FreshAdapter extends RecyclerView.Adapter<FreshAdapter.ViewHold> {
 	public void onBindViewHolder(final ViewHold holder, int position) {
 		Random ran =new Random(System.currentTimeMillis());
 		holder.tv.setHeight( ran.nextInt(100)+300);
+		holder.tv.setWidth(ran.nextInt(100)+300);
 		holder.tv.setText(names.get(position));
 		if(mOnItemClickLitener != null){
 			holder.tv.setOnLongClickListener(new View.OnLongClickListener() {
@@ -84,5 +88,16 @@ public class FreshAdapter extends RecyclerView.Adapter<FreshAdapter.ViewHold> {
 			this.tv =(TextView)itemView.findViewById(R.id.tv);
 
 		}
+	}
+	@Override
+	public void onItemMove(int fromPosition, int toPosition) {
+		Collections.swap(names,fromPosition,toPosition);
+		notifyItemMoved(fromPosition,toPosition);
+	}
+
+	@Override
+	public void onItemDismiss(int position) {
+		names.remove(position);
+		notifyItemRemoved(position);
 	}
 }
