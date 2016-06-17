@@ -37,4 +37,8 @@ dependencies {
     // 而且还支持Android最新推出的下拉控件 SwipeRefreshLayout
     //https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh
     compile 'in.srain.cube:ultra-ptr:1.0.11'
+    // https://github.com/itoledo/AppIntro-Xamarin  欢迎页
+    compile 'com.github.paolorotolo:appintro:3.4.0'
+    //floatactionbutton
+    compile 'com.android.support:design:22.2.0'
 }

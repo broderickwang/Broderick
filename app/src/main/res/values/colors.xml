@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="nomal">#FFF1CFDA</color>
+    <color name="floatbutton_nomal">#FF9CA8EA</color>
+    <color name="floatbutton_press">#FF3AC9A5</color>
 </resources>

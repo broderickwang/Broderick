@@ -1,17 +1,17 @@
 package com.ttb.broderick.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.widget.ImageView;
 
 import com.ttb.broderick.MainActivity;
-import com.ttb.broderick.R;
 
 public class SplashActivity extends AppCompatActivity {
 
+	private SharedPreferences.Editor editor;
+	private SharedPreferences preferences;
+	boolean fristload;
 	/**
 	 * @param savedInstanceState
 	 */
@@ -23,34 +23,23 @@ public class SplashActivity extends AppCompatActivity {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		startActivity(new Intent(SplashActivity.this, MainActivity.class));
+		checkLoad();
+		if(fristload){
+			editor.putBoolean("fristload", false);
+			editor.commit();
+			startActivity(new Intent(SplashActivity.this, Welcome.class));
+		}else{
+			editor.putBoolean("fristload", false);
+			editor.commit();
+			startActivity(new Intent(SplashActivity.this, MainActivity.class));
+		}
+
 		finish();
-		/*setContentView(R.layout.activity_splash);
-		ImageView logoImage = (ImageView) this.findViewById(R.id.splash);
-		AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
-		alphaAnimation.setDuration(4000);
-		logoImage.startAnimation(alphaAnimation);
-		alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-			}
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-			}
-			@Override
-			public void onAnimationEnd(Animation animation) {
-//                if (isStart)
-//                    return;
-				startActivity(new Intent(SplashActivity.this, MainActivity.class));
-				SplashActivity.this.finish();
-			}
-		});*/
+	}
+	private void checkLoad(){
+		preferences = this.getSharedPreferences("check",MODE_PRIVATE);
+		editor = preferences.edit();
+		fristload=preferences.getBoolean("fristload", true);
 	}
 
-	private class  at extends Thread{
-		@Override
-		public void run() {
-//			Thread.sleep(3000);
-		}
-	}
 }

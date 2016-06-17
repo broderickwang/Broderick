@@ -1,5 +1,6 @@
 package com.ttb.broderick.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -89,6 +90,12 @@ public class RecycleViewActivity extends AppCompatActivity {
 				break;
 			case R.id.delete:
 				mAdapter.removeData(1);
+				break;
+			case R.id.guide:
+				SharedPreferences preferences = this.getSharedPreferences("check",MODE_PRIVATE);
+				SharedPreferences.Editor editor = preferences.edit();
+				editor.putBoolean("fristload", true);
+				editor.commit();
 				break;
 		}
 		return true;
