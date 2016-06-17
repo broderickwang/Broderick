@@ -1,11 +1,17 @@
 package com.ttb.broderick;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.special.ResideMenu.ResideMenu;
@@ -20,10 +26,15 @@ public class MainActivity extends AppCompatActivity {
 	ResideMenu resideMenu;
 	@Bind(R.id.jump)
 	Button jump;
+	@Bind(R.id.lmenu)
+	ImageView lmenu;
+	@Bind(R.id.rmenu)
+	ImageView rmenu;
 	private ResideMenuItem itemHome;
 	private ResideMenuItem itemProfile;
 	private ResideMenuItem itemCalendar;
 	private ResideMenuItem itemSettings;
+	Resources res;//= getResources();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +43,18 @@ public class MainActivity extends AppCompatActivity {
 		ButterKnife.bind(this);
 		CardView cardView = (CardView) findViewById(R.id.card1);
 		setMenu();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			//透明状态栏
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			//透明导航栏
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
+		res = getResources();
 	}
 
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
-		resideMenu.openMenu(ResideMenu.DIRECTION_LEFT); // or ResideMenu.DIRECTION_RIGHT
+//		resideMenu.openMenu(ResideMenu.DIRECTION_LEFT); // or ResideMenu.DIRECTION_RIGHT
 //		resideMenu.closeMenu();
 		return super.dispatchTouchEvent(ev);
 	}
@@ -45,18 +63,19 @@ public class MainActivity extends AppCompatActivity {
 		@Override
 		public void openMenu() {
 			Toast.makeText(MainActivity.this, "menu opened", Toast.LENGTH_SHORT).show();
+			lmenu.setImageBitmap(BitmapFactory.decodeResource(res, R.drawable.cancel));
 		}
 
 		@Override
 		public void closeMenu() {
 			Toast.makeText(MainActivity.this, "menu closed", Toast.LENGTH_SHORT).show();
+			lmenu.setImageBitmap(BitmapFactory.decodeResource(res, R.drawable.leftmenu));
 		}
 	};
 
 	private void setMenu() {
-// attach to current activity;
+		// attach to current activity;
 		resideMenu = new ResideMenu(this);
-//		resideMenu.setUse3D(true);
 
 		resideMenu.setBackground(R.drawable.menu_background);
 		resideMenu.attachToActivity(this);
@@ -69,6 +88,12 @@ public class MainActivity extends AppCompatActivity {
 		itemProfile = new ResideMenuItem(this, R.drawable.icon_profile, "Profile");
 		itemCalendar = new ResideMenuItem(this, R.drawable.icon_calendar, "Calendar");
 		itemSettings = new ResideMenuItem(this, R.drawable.icon_settings, "Settings");
+		itemHome.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Toast.makeText(MainActivity.this, "clicked itemhome", Toast.LENGTH_SHORT).show();
+			}
+		});
 
 		/*itemHome.setOnClickListener(this);
 		itemProfile.setOnClickListener(this);
@@ -95,10 +120,28 @@ public class MainActivity extends AppCompatActivity {
 				resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
 			}
 		});*/
+		lmenu.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
+			}
+		});
+		rmenu.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
+			}
+		});
 	}
 
 	@OnClick(R.id.jump)
 	public void onClick() {
+
 		startActivity(new Intent(MainActivity.this, Main2Activity.class));
 	}
+
+
+	/*public void onClick() {
+		resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
+	}*/
 }
