@@ -1,20 +1,37 @@
 package com.ttb.broderick.adapter;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.ttb.broderick.R;
+
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Kevin on 16/6/16.
  */
-public class FreshAdapter extends BaseAdapter {
+public class FreshAdapter extends RecyclerView.Adapter<FreshAdapter.ViewHold> {
+
+	public interface OnItemClickLitener
+	{
+		void onItemClick(View view, int position);
+		void onItemLongClick(View view , int position);
+	}
+
 	Context context;
 	List<String> names;
+	private OnItemClickLitener mOnItemClickLitener;
+	public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener)
+	{
+		this.mOnItemClickLitener = mOnItemClickLitener;
+	}
 
 	public FreshAdapter(Context context, List<String> names) {
 		this.context = context;
@@ -22,34 +39,50 @@ public class FreshAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public int getCount() {
+	public ViewHold onCreateViewHolder(ViewGroup parent, int viewType) {
+		ViewHold viewHold = new ViewHold(
+				LayoutInflater.from(context).inflate(R.layout.simple_adapter,null));
+		return  viewHold;
+	}
+
+	@Override
+	public void onBindViewHolder(final ViewHold holder, int position) {
+		Random ran =new Random(System.currentTimeMillis());
+		holder.tv.setHeight( ran.nextInt(100)+300);
+		holder.tv.setText(names.get(position));
+		if(mOnItemClickLitener != null){
+			holder.tv.setOnLongClickListener(new View.OnLongClickListener() {
+				@Override
+				public boolean onLongClick(View view) {
+					int pos = holder.getPosition();
+					mOnItemClickLitener.onItemLongClick(holder.itemView, pos);
+					return false;
+				}
+			});
+		}
+	}
+
+	@Override
+	public int getItemCount() {
 		return names.size();
 	}
 
-	@Override
-	public Object getItem(int i) {
-		return names.get(i);
+	public void addData(int position) {
+		names.add(position, "Insert One");
+		notifyItemInserted(position);
 	}
 
-	@Override
-	public long getItemId(int i) {
-		return i;
+	public void removeData(int position) {
+		names.remove(position);
+		notifyItemRemoved(position);
 	}
-
-	@Override
-	public View getView(int i, View view, ViewGroup viewGroup) {
-		ViewHold hold;
-		if(view == null){
-			hold = new ViewHold();
-			view = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1,null);
-			view.setTag(hold);
-		}else
-			hold = (ViewHold)view.getTag();
-		hold.tv = (TextView)view.findViewById(android.R.id.text1);
-		hold.tv.setText(names.get(i));
-		return view;
-	}
-	class ViewHold{
+	class ViewHold extends RecyclerView.ViewHolder{
 		TextView tv;
+
+		public ViewHold(View itemView) {
+			super(itemView);
+			this.tv =(TextView)itemView.findViewById(R.id.tv);
+
+		}
 	}
 }

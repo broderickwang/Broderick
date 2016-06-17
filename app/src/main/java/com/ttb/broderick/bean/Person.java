@@ -7,8 +7,8 @@ import android.os.Parcelable;
 /*********************************************************
  * 说 明 ：  Parcelable接口的使用，使类可以在activity之间传递
  *          类似于Serializable接口，但是Serializable接口序列化
- *          和反序列化过程中需要大量I/O操作，
- *          从而导致开销大效率低。Parcelable接口可以避免这种情况
+ *          和反序列化过程中需要大量I/O操作，从而导致开销大效率低。
+ *          Parcelable接口可以避免这种情况
  * Created by Kevin on 16/6/17.
  *********************************************************/
 public class Person implements Parcelable {

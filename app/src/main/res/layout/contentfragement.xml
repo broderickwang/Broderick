@@ -17,4 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="content name"/>
+    <Button
+        android:id="@+id/jump2"
+        android:text="jump to recycleviewacitivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
