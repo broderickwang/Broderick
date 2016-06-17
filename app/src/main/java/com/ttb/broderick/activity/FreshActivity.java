@@ -7,9 +7,11 @@ import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ttb.broderick.R;
 import com.ttb.broderick.adapter.FreshAdapter;
+import com.ttb.broderick.bean.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,11 @@ public class FreshActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_fresh);
 		ButterKnife.bind(this);
 		setListnrer();
+		getExtra();
+	}
+	private void getExtra(){
+		Person person = (Person) getIntent().getParcelableExtra("person");
+		Toast.makeText(FreshActivity.this, person.toString(), Toast.LENGTH_SHORT).show();
 	}
 	private void setListnrer(){
 		List<String> ns = new ArrayList<>();
