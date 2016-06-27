@@ -6,16 +6,30 @@ android {
 
     defaultConfig {
         applicationId "com.ttb.broderick"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+    }
+    packagingOptions{
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        pickFirst  'META-INF/license.txt'
+        exclude 'META-INF/maven/com.belerweb/pinyin4j/pom.xml'
+        exclude 'META-INF/maven/com.belerweb/pinyin4j/pom.properties'
+        exclude 'META-INF/maven/commons-io/commons-io/pom.xml'
+        exclude 'META-INF/maven/commons-io/commons-io/pom.properties'
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    dexOptions {
+        javaMaxHeapSize "4g" //specify the heap size for the dex process
     }
 }
 
@@ -41,4 +55,16 @@ dependencies {
     compile 'com.github.paolorotolo:appintro:3.4.0'
     //floatactionbutton
     compile 'com.android.support:design:22.2.0'
+    //arcgis dependences
+//    compile 'com.esri.arcgis.android:arcgis-android:10.2.8'
+
+    //Retrofit HTTP REQUEST
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+
+//    compile 'net.yazeed44.imagepicker:imagepicker:1.0.0'
+    compile 'com.yancy.imageselector:imageselector:1.1.0'
+    //glide
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    //CardStackView
+    compile 'com.loopeer.library:cardstack:1.0.1'
 }

@@ -16,11 +16,15 @@ import android.widget.Toast;
 
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
+import com.ttb.broderick.activity.CardStackView;
+import com.ttb.broderick.activity.HttpClicentActiviy;
 import com.ttb.broderick.activity.Main2Activity;
+import com.ttb.broderick.interfaces.GitHubService;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 	ResideMenu resideMenu;
@@ -92,6 +96,27 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				Toast.makeText(MainActivity.this, "clicked itemhome", Toast.LENGTH_SHORT).show();
+			}
+		});
+		itemCalendar.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				startActivity(new Intent(MainActivity.this, HttpClicentActiviy.class));
+			}
+		});
+		itemSettings.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Retrofit retrofit = new Retrofit.Builder()
+						.baseUrl("https://api.github.com/")
+						.build();
+				GitHubService service = retrofit.create(GitHubService.class);
+			}
+		});
+		itemProfile.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				startActivity(new Intent(MainActivity.this, CardStackView.class));
 			}
 		});
 
