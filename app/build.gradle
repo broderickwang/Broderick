@@ -1,6 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+// 这个version是区分library版本的，因此当我们需要更新library时记得修改这个version
+// 这个version影响后面的引用
+version = "0.0.2"
 
 android {
+    resourcePrefix "kevin_" //随意填写
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
@@ -67,4 +73,12 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.5.2'
     //CardStackView
     compile 'com.loopeer.library:cardstack:1.0.1'
+    //检测内存泄漏 start
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    //end
+
+
 }
+

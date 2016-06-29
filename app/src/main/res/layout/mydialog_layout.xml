@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+    <Button
+        android:id="@+id/gcc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/myrect"
+        android:layout_marginTop="10dp"
+        android:text="内存泄漏测试"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/myrect"
+        android:layout_marginTop="10dp"
+        android:text="test12"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/myrect"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="test13"/>
+
+</LinearLayout>
